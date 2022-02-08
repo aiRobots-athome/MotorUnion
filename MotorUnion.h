@@ -1,7 +1,7 @@
 #pragma once
-#include "./Motor/MotorMx.h"
-#include "./Motor/MotorPro.h"
-#include "./Motor/MotorProPlus.h"
+#include "./Motor/DmotorMx.h"
+#include "./Motor/DmotorPro.h"
+#include "./Motor/DmotorProPlus.h"
 #include <vector>
 #include <thread>
 #include <chrono>
@@ -56,6 +56,8 @@ public:
 	const float &GetMotor_PresentAngle(const unsigned char &idx) const;
 	const float &GetMotor_PresentTorque(const unsigned char &idx) const;
 	const int &GetMotor_Velocity(const unsigned char &idx) const;
+	const bool CheckPort_Connected() const;
+	void SetTerminated_flag(bool *terminated);
 
 protected:
 	const float &GetMotor_Scale2RPM(const unsigned char &idx) const;
@@ -70,8 +72,10 @@ protected:
 	void SetMotor_CenterScale(const unsigned char &idx, const short &motor_center_scale) const;
 	void SetMotor_Angle(const unsigned char &idx, const float &angle) const;
 	void SetMotor_Velocity(const unsigned char &idx, const int &velocity) const;
+	void SetMotor_Profile_Velocity(const unsigned char &idx, const int &velocity) const;
 	void SetMotor_Accel(const unsigned char &idx, const int &accel) const;
 	void SetMotor_TorqueEnable(const unsigned char &idx, const bool &enable) const;
+	bool *terminated_;
 
 	////////////////////////////////////////////////////////////////////////////////
 	///   Background   /////////////////////////////////////////////////////////////
@@ -92,7 +96,7 @@ private:
 	void ReadData() const;
 
 private:
-	vector<Motor *> Motor_Union;
+	vector<Dmotor *> Motor_Union;
 	const int waiting_frequency;
 
 public:

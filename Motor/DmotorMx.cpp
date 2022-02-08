@@ -1,10 +1,10 @@
-#include "MotorMx.h"
+#include "DmotorMx.h"
 
-MotorMx::MotorMx()
-	: Motor(57600, 0, 64, 104, 108, 112, 116, 126, 128, 132, 11, 1, 4, 4, 4, 4, 2, 4, 4) {}
+DmotorMx::DmotorMx()
+	: Dmotor(57600, 0, 64, 104, 108, 112, 116, 126, 128, 132, 11, 1, 4, 4, 4, 4, 2, 4, 4) {}
 
-MotorMx::MotorMx(const unsigned char &MotorID, const string &MotorModel)
-	: Motor(4000000, MotorID, 64, 104, 108, 112, 116, 126, 128, 132, 11, 1, 4, 4, 4, 4, 2, 4, 4)
+DmotorMx::DmotorMx(const unsigned char &MotorID, const string &MotorModel)
+	: Dmotor(4000000, MotorID, 64, 104, 108, 112, 116, 126, 128, 132, 11, 1, 4, 4, 4, 4, 2, 4, 4)
 {
 	if (MotorModel == "Mx106" || MotorModel == "Mx64")
 	{

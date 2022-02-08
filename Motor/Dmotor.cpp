@@ -1,6 +1,6 @@
-#include "Motor.h"
+#include "Dmotor.h"
 
-Motor::Motor()
+Dmotor::Dmotor()
 	: motor(),
 	  BAUDRATE(0),
 	  Motor_ID(0),
@@ -26,7 +26,7 @@ Motor::Motor()
 	read_count = 0;
 }
 
-Motor::Motor(
+Dmotor::Dmotor(
 	const unsigned int &baudrate,
 	const unsigned char &id,
 	const uint16_t &addr_torque_enable,
@@ -71,10 +71,10 @@ Motor::Motor(
 	read_count = 0;
 }
 
-const unsigned char &Motor::GetMotorID() const { return Motor_ID; }
-const bool &Motor::GetMotorConnected() const { return connected; }
+const unsigned char &Dmotor::GetMotorID() const { return Motor_ID; }
+const bool &Dmotor::GetMotorConnected() const { return connected; }
 
-void Motor::ConnectDynamixel(
+void Dmotor::ConnectDynamixel(
 	dynamixel::PortHandler *portHandler,
 	dynamixel::PacketHandler *packetHandler,
 	dynamixel::GroupBulkRead *groupBulkRead,
@@ -87,7 +87,7 @@ void Motor::ConnectDynamixel(
 	ConnectDynamixel();
 }
 
-void Motor::ConnectDynamixel()
+void Dmotor::ConnectDynamixel()
 {
 	uint8_t dxl_error = 0;
 	uint16_t dxl_model_number = 0; // Dynamixel model number
@@ -119,7 +119,7 @@ void Motor::ConnectDynamixel()
 	}
 }
 
-bool Motor::WriteData()
+bool Dmotor::WriteData()
 {
 	// !!!!!! Must write torque enable first
 	if (is_Write_TorqueEnable)
@@ -137,6 +137,11 @@ bool Motor::WriteData()
 		WriteVelocity();
 		return !is_Write_Velocity;
 	}
+	if (is_Write_Profile_Velocity)
+	{
+		WriteProfileVelocity();
+		return !is_Write_Profile_Velocity;
+	}
 	if (is_Write_Scale)
 	{
 		WriteScale();
@@ -145,7 +150,7 @@ bool Motor::WriteData()
 	return false;
 }
 
-void Motor::AddParam()
+void Dmotor::AddParam()
 {
 	switch (read_count)
 	{
@@ -161,7 +166,7 @@ void Motor::AddParam()
 	}
 }
 
-void Motor::ReadData()
+void Dmotor::ReadData()
 {
 	switch (read_count)
 	{
@@ -184,45 +189,45 @@ void Motor::ReadData()
 	}
 }
 
-void Motor::AddParamPresentAngle()
+void Dmotor::AddParamPresentAngle()
 {
 	groupBulkRead->addParam(Motor_ID, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION);
 }
 
-void Motor::AddParamPresentVelocity()
+void Dmotor::AddParamPresentVelocity()
 {
 	groupBulkRead->addParam(Motor_ID, ADDR_PRESENT_VELOCITY, LEN_PRESENT_VELOCITY);
 }
 
-void Motor::AddParamPresentTorque()
+void Dmotor::AddParamPresentTorque()
 {
 	groupBulkRead->addParam(Motor_ID, ADDR_PRESENT_TORQUE, LEN_PRESENT_TORQUE);
 }
 
-void Motor::ReadPresentAngle()
+void Dmotor::ReadPresentAngle()
 {
 	int32_t data = groupBulkRead->getData(Motor_ID, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION);
 	Motor_Present_Angle = (data - Motor_CenterScale) * MotorScale2Angle;
 }
 
-void Motor::ReadPresentVelocity()
+void Dmotor::ReadPresentVelocity()
 {
 	int32_t data = groupBulkRead->getData(Motor_ID, ADDR_PRESENT_VELOCITY, LEN_PRESENT_VELOCITY);
 	Motor_Present_Velocity = data;
 }
 
-void Motor::ReadPresentTorque()
+void Dmotor::ReadPresentTorque()
 {
 	int16_t data = groupBulkRead->getData(Motor_ID, ADDR_PRESENT_TORQUE, LEN_PRESENT_TORQUE);
 	Motor_Present_Torque = data * 100.f / Max_Torque_Limit;
 }
 
-void Motor::WriteMode(uint8_t mode)	// NOT WORKING!!!
+void Dmotor::WriteMode(uint8_t mode)	// NOT WORKING!!!
 {
 	groupBulkWrite->addParam(Motor_ID, ADDR_OPERATING_MODE, 1, &mode);
 }
 
-void Motor::WriteScale()
+void Dmotor::WriteScale()
 {
 	uint8_t param_goal_position[LEN_GOAL_POSITION];
 	param_goal_position[0] = DXL_LOBYTE(DXL_LOWORD((int)Motor_Scale));
@@ -234,7 +239,7 @@ void Motor::WriteScale()
 	is_Write_Scale = false;
 }
 
-void Motor::WriteVelocity()
+void Dmotor::WriteVelocity()
 {
 	uint8_t param_goal_velocity[LEN_GOAL_VELOCITY];
 	param_goal_velocity[0] = DXL_LOBYTE(DXL_LOWORD((int)Motor_Velocity));
@@ -251,14 +256,39 @@ void Motor::WriteVelocity()
 	case 3:
 	case 4:
 		groupBulkWrite->addParam(Motor_ID, ADDR_GOAL_VELOCITY, LEN_GOAL_VELOCITY, param_goal_velocity);
-		groupBulkWrite->addParam(Motor_ID, ADDR_PROFILE_VELOCITY, LEN_PROFILE_VELOCITY, param_goal_velocity);
+		//groupBulkWrite->addParam(Motor_ID, ADDR_PROFILE_VELOCITY, LEN_PROFILE_VELOCITY, param_goal_velocity);
 		break;
 	}
 
 	is_Write_Velocity = false;
 }
 
-void Motor::WriteAccel()
+void Dmotor::WriteProfileVelocity()
+{
+	uint8_t param_profile_velocity[LEN_PROFILE_VELOCITY];
+	param_profile_velocity[0] = DXL_LOBYTE(DXL_LOWORD((int)Motor_Profile_Velocity));
+	param_profile_velocity[1] = DXL_HIBYTE(DXL_LOWORD((int)Motor_Profile_Velocity));
+	param_profile_velocity[2] = DXL_LOBYTE(DXL_HIWORD((int)Motor_Profile_Velocity));
+	param_profile_velocity[3] = DXL_HIBYTE(DXL_HIWORD((int)Motor_Profile_Velocity));
+
+	switch (Motor_Operating_Mode)
+	{
+	case 1:
+		groupBulkWrite->addParam(Motor_ID, ADDR_GOAL_VELOCITY, LEN_GOAL_VELOCITY, param_profile_velocity);
+		break;
+
+	case 3:
+	case 4:
+		//groupBulkWrite->addParam(Motor_ID, ADDR_GOAL_VELOCITY, LEN_GOAL_VELOCITY, param_profile_velocity);
+		groupBulkWrite->addParam(Motor_ID, ADDR_PROFILE_VELOCITY, LEN_PROFILE_VELOCITY, param_profile_velocity);
+		break;
+	}
+
+	is_Write_Profile_Velocity = false;
+}
+
+
+void Dmotor::WriteAccel()
 {
 	uint8_t param_goal_accel[LEN_PROFILE_ACCEL];
 	param_goal_accel[0] = DXL_LOBYTE(DXL_LOWORD(Motor_Accel));
@@ -270,7 +300,7 @@ void Motor::WriteAccel()
 	is_Write_Accel = false;
 }
 
-void Motor::WriteTorqueEnable()
+void Dmotor::WriteTorqueEnable()
 {
 	uint8_t param_torque_enable[LEN_TORQUE_ENABLE];
 	param_torque_enable[0] = Motor_TorqueEnable;

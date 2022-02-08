@@ -27,6 +27,7 @@ public:
 	void SetMotor_CenterScale(const short &);
 	void SetMotor_Angle(const float &);
 	void SetMotor_Velocity(const int &);
+	void SetMotor_Profile_Velocity(const int &);
 	void SetMotor_Accel(const int &);
 	void SetMotor_TorqueEnable(const bool &);
 	//------------------------------------------------------------------------------------------------------------------//
@@ -45,6 +46,7 @@ protected:
 	float Motor_Angle;			  	// (degree)
 	int Motor_Scale;			  	// Goal Position (Motor Scale)
 	int Motor_Velocity;			  	// Goal Velocity
+	int Motor_Profile_Velocity;		// Profile Velocity
 	int Motor_Accel;			  	// Goal Acceleration
 	float Motor_Present_Angle;	  	// Present Position (degree)
 	float Motor_Present_Velocity; 	// Present Velocity (rpm)
@@ -67,6 +69,7 @@ protected:
 	bool is_Arrival;
 	bool is_Write_Scale;
 	bool is_Write_Velocity;
+	bool is_Write_Profile_Velocity;
 	bool is_Write_Accel;
 	bool is_Write_TorqueEnable;
 };

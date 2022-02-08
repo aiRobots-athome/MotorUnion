@@ -15,13 +15,13 @@ MotorUnion::MotorUnion(const vector<unsigned char> &IDArray,
 	for (unsigned char i = 0; i < IDArray.size(); i++)
 	{
 		if (MotorModelArray.at(i) == "Pro100" || MotorModelArray.at(i) == "Pro200" || MotorModelArray.at(i) == "Pro20")
-			Motor_Union.push_back(new MotorPro(IDArray.at(i), MotorModelArray.at(i)));
+			Motor_Union.push_back(new DmotorPro(IDArray.at(i), MotorModelArray.at(i)));
 
 		else if (MotorModelArray.at(i) == "Pro20+")
-			Motor_Union.push_back(new MotorProPlus(IDArray.at(i), MotorModelArray.at(i)));
+			Motor_Union.push_back(new DmotorProPlus(IDArray.at(i), MotorModelArray.at(i)));
 
 		else if (MotorModelArray.at(i) == "Mx106" || MotorModelArray.at(i) == "Mx64")
-			Motor_Union.push_back(new MotorMx(IDArray.at(i), MotorModelArray.at(i)));
+			Motor_Union.push_back(new DmotorMx(IDArray.at(i), MotorModelArray.at(i)));
 		else
 			;
 	}
@@ -233,6 +233,15 @@ const bool &MotorUnion::GetMotor_Connected(const unsigned char &idx) const
 	return Motor_Union.at(idx)->GetMotorConnected();
 }
 
+const bool MotorUnion::CheckPort_Connected() const
+{
+	return portHandler.empty();
+}
+
+void MotorUnion::SetTerminated_flag(bool *terminated) {
+	terminated_ = terminated;
+}
+
 const float &MotorUnion::GetMotor_Scale2RPM(const unsigned char &idx) const
 {
 	return Motor_Union.at(idx)->GetMotor_Scale2RPM();
@@ -310,6 +319,11 @@ void MotorUnion::SetMotor_Angle(const unsigned char &idx, const float &angle) co
 void MotorUnion::SetMotor_Velocity(const unsigned char &idx, const int &velocity) const
 {
 	Motor_Union.at(idx)->SetMotor_Velocity(velocity);
+}
+
+void MotorUnion::SetMotor_Profile_Velocity(const unsigned char &idx, const int &velocity) const
+{
+	Motor_Union.at(idx)->SetMotor_Profile_Velocity(velocity);
 }
 
 void MotorUnion::SetMotor_Accel(const unsigned char &idx, const int &accel) const

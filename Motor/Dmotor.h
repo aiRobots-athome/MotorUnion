@@ -5,10 +5,10 @@
 
 using namespace std;
 
-class Motor : public motor
+class Dmotor : public motor
 {
 public:
-	Motor();
+	Dmotor();
 	/* 
 	@ Baudrate,  
 	@ Id,
@@ -29,7 +29,7 @@ public:
 	@ Len_present_velocity,
 	@ Len_present_position  
 	*/
-	Motor(
+	Dmotor(
 		const unsigned int &baudrate,
 		const unsigned char &id,
 		const uint16_t &addr_torque_enable,
@@ -49,7 +49,7 @@ public:
 		const uint16_t &len_present_torque,
 		const uint16_t &len_present_velocity,
 		const uint16_t &len_present_position);
-	~Motor(){};
+	~Dmotor(){};
 	//--------------------------//
 	const unsigned char &GetMotorID() const;
 	const bool &GetMotorConnected() const;
@@ -76,6 +76,7 @@ private:
 	void ReadPresentTorque();
 	void WriteScale();
 	void WriteVelocity();
+	void WriteProfileVelocity();
 	void WriteAccel();
 	void WriteTorqueEnable();
 

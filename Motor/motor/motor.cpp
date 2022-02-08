@@ -12,6 +12,7 @@ motor::motor()
 	Motor_Angle = 0.0f;
 	Motor_Scale = 0;
 	Motor_Velocity = 0;
+	Motor_Profile_Velocity = 0;
 	Motor_Accel = 0;
 	Motor_Present_Angle = 0.0f;
 	Motor_Present_Velocity = 0.0f;
@@ -30,6 +31,7 @@ motor::motor()
 	is_Arrival = true;
 	is_Write_Scale = false;
 	is_Write_Velocity = false;
+	is_Write_Profile_Velocity = false;
 	is_Write_Accel = false;
 	is_Write_TorqueEnable = false;
 }
@@ -121,6 +123,30 @@ void motor::SetMotor_Velocity(const int &velocity)
 		break;
 	}
 	is_Write_Velocity = true;
+}
+
+void motor::SetMotor_Profile_Velocity(const int &velocity)
+{
+	switch (Motor_Operating_Mode)
+	{
+	case 1: // Velocity control mode
+		if (velocity >= Max_Velocity_Limit)
+			Motor_Profile_Velocity = Max_Velocity_Limit;
+		else if (velocity <= Min_Velocity_Limit)
+			Motor_Velocity = Min_Velocity_Limit;
+		else
+			Motor_Profile_Velocity = velocity;
+		break;
+
+	case 3: // Position control mode
+	case 4:	// Extended position control mode
+		if (std::abs(velocity) >= Max_Velocity_Limit)
+			Motor_Profile_Velocity = Max_Velocity_Limit;
+		else
+			Motor_Profile_Velocity = std::abs(velocity);
+		break;
+	}
+	is_Write_Profile_Velocity = true;
 }
 
 void motor::SetMotor_Accel(const int &accel)
