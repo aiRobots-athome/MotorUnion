@@ -1,4 +1,5 @@
 #include "MotorUnion.h"
+#include <unistd.h>
 vector<unsigned char> MotorUnion::allport = {0, 1, 2, 3, 4, 5, 6};
 
 /**
@@ -63,8 +64,13 @@ const bool MotorUnion::ConnectAllMotors(vector<unsigned char> &AllPortNumber)
 	vector<unsigned char>::iterator it;
 	for (it = AllPortNumber.begin(); it != AllPortNumber.end();)
 	{
-		// Set the port path
+		// Set the port path and check if port exist
 		string port_path = string("/dev/ttyUSB" + to_string(*it));
+		if( access( port_path.c_str(), F_OK ) == -1 ) {
+			it++;
+			continue;
+		}
+
 		// Initialize PortHandler & PacketHandler instance
 		dynamixel::PortHandler *tmp_portHandler = dynamixel::PortHandler::getPortHandler(port_path.c_str());
 		packetHandler = dynamixel::PacketHandler::getPacketHandler(2.0);
