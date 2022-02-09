@@ -54,7 +54,7 @@ public:
 	const unsigned char &GetMotor_ID(const unsigned char &idx) const;
 	const bool &GetMotor_Connected(const unsigned char &idx) const;
 	const float &GetMotor_PresentAngle(const unsigned char &idx) const;
-	const float GetMotor_AngleSingleTurn(const unsigned char &idx) const;
+	const float GetMotor_PresentAngleSingleTurn(const unsigned char &idx) const;
 	const float &GetMotor_PresentTorque(const unsigned char &idx) const;
 	const float &GetMotor_PresentVelocity(const unsigned char &idx) const;
 	const float GetMotor_PresentVelocityRPM(const unsigned char &idx) const;

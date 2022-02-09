@@ -291,7 +291,7 @@ const float &MotorUnion::GetMotor_PresentAngle(const unsigned char &idx) const
 	return Motor_Union.at(idx)->GetMotor_PresentAngle();
 }
 
-const float MotorUnion::GetMotor_AngleSingleTurn(const unsigned char &idx) const
+const float MotorUnion::GetMotor_PresentAngleSingleTurn(const unsigned char &idx) const
 {
 	float current_angle = Motor_Union.at(idx)->GetMotor_PresentAngle();
 	float angle = fmod(current_angle, 360.0);
