@@ -1,5 +1,6 @@
 #include "MotorUnion.h"
 #include <unistd.h>
+#include <math.h>
 vector<unsigned char> MotorUnion::allport = {0, 1, 2, 3, 4, 5, 6};
 
 /**
@@ -290,9 +291,29 @@ const float &MotorUnion::GetMotor_PresentAngle(const unsigned char &idx) const
 	return Motor_Union.at(idx)->GetMotor_PresentAngle();
 }
 
+const float MotorUnion::GetMotor_AngleSingleTurn(const unsigned char &idx) const
+{
+	float current_angle = Motor_Union.at(idx)->GetMotor_PresentAngle();
+	float angle = fmod(current_angle, 360.0);
+
+	if(angle < 0)
+	{
+		return 360.0 + angle;
+	}
+	else
+	{
+		return angle;
+	}
+}
+
 const float &MotorUnion::GetMotor_PresentVelocity(const unsigned char &idx) const
 {
 	return Motor_Union.at(idx)->GetMotor_PresentVelocity();
+}
+
+const float MotorUnion::GetMotor_PresentVelocityRPM(const unsigned char &idx) const
+{
+	return Motor_Union.at(idx)->GetMotor_PresentVelocity() * Motor_Union.at(idx)->GetMotor_Scale2RPM();
 }
 
 const float &MotorUnion::GetMotor_PresentTorque(const unsigned char &idx) const

@@ -54,8 +54,10 @@ public:
 	const unsigned char &GetMotor_ID(const unsigned char &idx) const;
 	const bool &GetMotor_Connected(const unsigned char &idx) const;
 	const float &GetMotor_PresentAngle(const unsigned char &idx) const;
+	const float GetMotor_AngleSingleTurn(const unsigned char &idx) const;
 	const float &GetMotor_PresentTorque(const unsigned char &idx) const;
-	const int &GetMotor_Velocity(const unsigned char &idx) const;
+	const float &GetMotor_PresentVelocity(const unsigned char &idx) const;
+	const float GetMotor_PresentVelocityRPM(const unsigned char &idx) const;
 	const bool CheckPort_Connected() const;
 	void SetTerminated_flag(bool *terminated);
 
@@ -64,9 +66,9 @@ protected:
 	const float &GetMotor_Scale2RPMM(const unsigned char &idx) const;
 	const short &GetMotor_CenterScale(const unsigned char &idx) const;
 	const float &GetMotor_Angle(const unsigned char &idx) const;
+	const int &GetMotor_Velocity(const unsigned char &idx) const;
 	const int &GetMotor_Accel(const unsigned char &idx) const;
 	const bool &GetMotor_TorqueEnable(const unsigned char &idx) const;
-	const float &GetMotor_PresentVelocity(const unsigned char &idx) const;
 	/* Set Motor Data */
 	void SetMotor_Operating_Mode(const unsigned char &idx, char mode) const;
 	void SetMotor_CenterScale(const unsigned char &idx, const short &motor_center_scale) const;
