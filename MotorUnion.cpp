@@ -29,6 +29,8 @@ MotorUnion::MotorUnion(const vector<unsigned char> &IDArray,
 
 	if (ConnectAllMotors(MotorUnion::allport))
 		BGON();
+	else
+		std::cout << "[MotorUnion] Connection failed." << std::endl;
 }
 
 MotorUnion::~MotorUnion()
