@@ -5,3 +5,5 @@ add_subdirectory(Motor)
 
 add_library(${PROJECT_NAME} SHARED MotorUnion.cpp)
 target_link_libraries(${PROJECT_NAME} Motor)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
