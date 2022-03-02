@@ -2,6 +2,7 @@
 #include "./Motor/DmotorMx.h"
 #include "./Motor/DmotorPro.h"
 #include "./Motor/DmotorProPlus.h"
+#include "./Motor/DmotorXm.h"
 #include <vector>
 #include <thread>
 #include <chrono>
@@ -53,6 +54,7 @@ protected:
 public:
 	const unsigned char &GetMotor_ID(const unsigned char &idx) const;
 	const bool &GetMotor_Connected(const unsigned char &idx) const;
+	const bool &GetMotor_TorqueEnable(const unsigned char &idx) const;
 	const float &GetMotor_PresentAngle(const unsigned char &idx) const;
 	const float GetMotor_PresentAngleSingleTurn(const unsigned char &idx) const;
 	const float &GetMotor_PresentTorque(const unsigned char &idx) const;
@@ -68,7 +70,6 @@ protected:
 	const float &GetMotor_Angle(const unsigned char &idx) const;
 	const int &GetMotor_Velocity(const unsigned char &idx) const;
 	const int &GetMotor_Accel(const unsigned char &idx) const;
-	const bool &GetMotor_TorqueEnable(const unsigned char &idx) const;
 	/* Set Motor Data */
 	void SetMotor_Operating_Mode(const unsigned char &idx, char mode) const;
 	void SetMotor_CenterScale(const unsigned char &idx, const short &motor_center_scale) const;
