@@ -24,6 +24,10 @@ MotorUnion::MotorUnion(const vector<unsigned char> &IDArray,
 
 		else if (MotorModelArray.at(i) == "Mx106" || MotorModelArray.at(i) == "Mx64")
 			Motor_Union.push_back(new DmotorMx(IDArray.at(i), MotorModelArray.at(i)));
+
+		else if (MotorModelArray.at(i) == "Xm540" || MotorModelArray.at(i) == "Xm430")
+			Motor_Union.push_back(new DmotorXm(IDArray.at(i), MotorModelArray.at(i)));
+
 		else
 			;
 	}
