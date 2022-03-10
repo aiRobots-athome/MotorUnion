@@ -62,6 +62,8 @@ public:
 	const float &GetMotor_PresentVelocity(const unsigned char &idx) const;
 	const float GetMotor_PresentVelocityRPM(const unsigned char &idx) const;
 	const bool CheckPort_Connected() const;
+	/* Get Any Motors Data */
+	const bool GetAnyMotorsTorqueEnable() const;
 	void SetTerminated_flag(bool *terminated);
 
 protected:
