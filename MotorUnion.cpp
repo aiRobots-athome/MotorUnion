@@ -192,6 +192,16 @@ const bool MotorUnion::GetAllMotorsTorqueEnable() const
 	return tmp;
 }
 
+
+const bool MotorUnion::GetAnyMotorsTorqueEnable() const {
+	bool tmp = true;
+	for (int i = 0; i < Motor_Union.size(); i++)
+	{
+		tmp |= GetMotor_TorqueEnable(i);
+	}
+	return tmp;
+}
+
 //------------------------------------------------------------------------------//
 /*
 	Set Motors Data
