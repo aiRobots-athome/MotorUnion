@@ -39,6 +39,7 @@ protected:
 	void WaitMotorArrival(int i) const;
 	const bool CheckAllMotorsArrival() const;
 	void WaitAllMotorsArrival(const int &total_waiting_time_ms) const;
+	void StopAllMotor() const;
 
 	/* Set All Motors Data */
 	void SetAllMotorsOperatingMode(const unsigned char &mode) const;
