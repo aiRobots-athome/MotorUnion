@@ -174,7 +174,7 @@ void MotorUnion::WaitAllMotorsArrival(const int &total_waiting_time_ms) const
 void MotorUnion::StopAllMotor() const {
 	for (int i = 0; i < Motor_Union.size(); i++)
 	{
-		Motor_Union.at(i)->SetMotor_Angle(Motor_Union.at(i)->GetMotor_Angle());
+		Motor_Union.at(i)->SetMotor_Angle(Motor_Union.at(i)->GetMotor_PresentAngle());
 	}
 }
 
