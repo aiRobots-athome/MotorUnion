@@ -21,6 +21,7 @@ public:
 	const float &GetMotor_PresentAngle() const;
 	const float &GetMotor_PresentVelocity() const;
 	const float &GetMotor_PresentTorque() const;
+	const bool &GetMotor_PresentTorqueEnable() const;
 	const bool &GetMotor_Arrival() const;
 	//-----------------------------------------------------//
 	void SetMotor_Operating_Mode(const unsigned char&);
@@ -52,6 +53,7 @@ protected:
 	float Motor_Present_Velocity; 	// Present Velocity (rpm)
 	float Motor_Present_Torque;   	// Percentage loading (%) (Present_Current / MaxCurrent)
 	bool Motor_TorqueEnable;
+	bool Motor_PresentTorqueEnable;
 
 	/* Max Min Limit*/
 	int Max_Position_Limit;			// Maximum value of position control

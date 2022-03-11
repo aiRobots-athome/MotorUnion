@@ -342,6 +342,11 @@ const float &MotorUnion::GetMotor_PresentTorque(const unsigned char &idx) const
 	return Motor_Union.at(idx)->GetMotor_PresentTorque();
 }
 
+const bool &MotorUnion::GetMotor_PresentTorqueEnable(const unsigned char &idx) const
+{
+	return Motor_Union.at(idx)->GetMotor_PresentTorqueEnable();
+}
+
 //------------------------------------------------------------------------------//
 /*
 	Set Motor Data

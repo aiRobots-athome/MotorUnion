@@ -71,9 +71,11 @@ private:
 	void AddParamPresentAngle();
 	void AddParamPresentVelocity();
 	void AddParamPresentTorque();
+	void AddParamPresentTorqueEnable();
 	void ReadPresentAngle();
 	void ReadPresentVelocity();
 	void ReadPresentTorque();
+	void ReadPresentTorqueEnable();
 	void WriteScale();
 	void WriteVelocity();
 	void WriteProfileVelocity();

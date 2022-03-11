@@ -18,6 +18,7 @@ motor::motor()
 	Motor_Present_Velocity = 0.0f;
 	Motor_Present_Torque = 0.0f;
 	Motor_TorqueEnable = false;
+	Motor_PresentTorqueEnable = false;
 
 	Max_Position_Limit = 0;
 	Min_Position_Limit = 0;
@@ -57,6 +58,8 @@ const float &motor::GetMotor_PresentAngle() const { return Motor_Present_Angle; 
 const float &motor::GetMotor_PresentVelocity() const { return Motor_Present_Velocity; }
 
 const float &motor::GetMotor_PresentTorque() const { return Motor_Present_Torque; }
+
+const bool &motor::GetMotor_PresentTorqueEnable() const { return Motor_PresentTorqueEnable; }
 
 const bool &motor::GetMotor_Arrival() const { return is_Arrival; }
 //-----------------------------------------------------//

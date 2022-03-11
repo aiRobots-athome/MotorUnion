@@ -60,6 +60,7 @@ public:
 	const float GetMotor_PresentAngleSingleTurn(const unsigned char &idx) const;
 	const float &GetMotor_PresentTorque(const unsigned char &idx) const;
 	const float &GetMotor_PresentVelocity(const unsigned char &idx) const;
+	const bool &GetMotor_PresentTorqueEnable(const unsigned char &idx) const;
 	const float GetMotor_PresentVelocityRPM(const unsigned char &idx) const;
 	const bool CheckPort_Connected() const;
 	/* Get Any Motors Data */

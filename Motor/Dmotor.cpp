@@ -163,6 +163,9 @@ void Dmotor::AddParam()
 	case 2:
 		AddParamPresentTorque();
 		break;
+	case 3:
+		AddParamPresentTorqueEnable();
+		break;
 	}
 }
 
@@ -184,6 +187,10 @@ void Dmotor::ReadData()
 		break;
 	case 2:
 		ReadPresentTorque();
+		read_count = 3;
+		break;
+	case 3:
+		ReadPresentTorqueEnable();
 		read_count = 0;
 		break;
 	}
@@ -204,6 +211,11 @@ void Dmotor::AddParamPresentTorque()
 	groupBulkRead->addParam(Motor_ID, ADDR_PRESENT_TORQUE, LEN_PRESENT_TORQUE);
 }
 
+void Dmotor::AddParamPresentTorqueEnable()
+{
+	groupBulkRead->addParam(Motor_ID, ADDR_TORQUE_ENABLE, LEN_TORQUE_ENABLE);
+}
+
 void Dmotor::ReadPresentAngle()
 {
 	int32_t data = groupBulkRead->getData(Motor_ID, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION);
@@ -220,6 +232,12 @@ void Dmotor::ReadPresentTorque()
 {
 	int16_t data = groupBulkRead->getData(Motor_ID, ADDR_PRESENT_TORQUE, LEN_PRESENT_TORQUE);
 	Motor_Present_Torque = data * 100.f / Max_Torque_Limit;
+}
+
+void Dmotor::ReadPresentTorqueEnable()
+{
+	int32_t data = groupBulkRead->getData(Motor_ID, ADDR_TORQUE_ENABLE, LEN_TORQUE_ENABLE);
+	Motor_PresentTorqueEnable = data;
 }
 
 void Dmotor::WriteMode(uint8_t mode)	// NOT WORKING!!!
