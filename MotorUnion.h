@@ -81,6 +81,7 @@ protected:
 	void SetMotor_Velocity(const unsigned char &idx, const int &velocity) const;
 	void SetMotor_Profile_Velocity(const unsigned char &idx, const int &velocity) const;
 	void SetMotor_Accel(const unsigned char &idx, const int &accel) const;
+	void SetMotor_AccelRPMM(const unsigned char &idx, const float &accel) const;
 	void SetMotor_TorqueEnable(const unsigned char &idx, const bool &enable) const;
 	bool *terminated_;
 

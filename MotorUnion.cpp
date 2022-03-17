@@ -386,6 +386,11 @@ void MotorUnion::SetMotor_Accel(const unsigned char &idx, const int &accel) cons
 	Motor_Union.at(idx)->SetMotor_Accel(accel);
 }
 
+void MotorUnion::SetMotor_AccelRPMM(const unsigned char &idx, const float &accel) const
+{
+	Motor_Union.at(idx)->SetMotor_Accel(int(accel/Motor_Union.at(idx)->GetMotor_Scale2RPMM()));
+}
+
 void MotorUnion::SetMotor_TorqueEnable(const unsigned char &idx, const bool &enable) const
 {
 	Motor_Union.at(idx)->SetMotor_TorqueEnable(enable);
