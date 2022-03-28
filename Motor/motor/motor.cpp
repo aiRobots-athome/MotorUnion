@@ -73,6 +73,11 @@ void motor::SetMotor_CenterScale(const short &centerscale)
 	Motor_CenterScale = centerscale;
 }
 
+/**
+ * @brief Set motor angle
+ * 
+ * @param angle - goal angle, in degree
+ */
 void motor::SetMotor_Angle(const float &angle)
 {
 	switch (Motor_Operating_Mode) {
@@ -104,6 +109,11 @@ void motor::SetMotor_Angle(const float &angle)
 	is_Write_Scale = true;
 }
 
+/**
+ * @brief Set motor velocity
+ * 
+ * @param velocity - goal velocity, in motor scale(RPM * unit)
+ */
 void motor::SetMotor_Velocity(const int &velocity)
 {
 	switch (Motor_Operating_Mode)
