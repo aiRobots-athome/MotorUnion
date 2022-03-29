@@ -45,6 +45,7 @@ protected:
 	void SetAllMotorsOperatingMode(const unsigned char &mode) const;
 	void SetAllMotorsAngle(const float &angle) const;
 	void SetAllMotorsVelocity(const int &velocity) const;
+	void SetAllMotorsProfileVelocity(const int &velocity) const;
 	void SetAllMotorsAccel(const int &accel) const;
 	void SetAllMotorsTorqueEnable(const bool &enable) const;
 

@@ -230,6 +230,13 @@ void MotorUnion::SetAllMotorsVelocity(const int &velocity) const
 	}
 }
 
+void MotorUnion::SetAllMotorsProfileVelocity(const int &velocity) const {
+	for (int i = 0; i < Motor_Union.size(); i++)
+	{
+		SetMotor_Profile_Velocity(i, velocity);
+	}
+}
+
 void MotorUnion::SetAllMotorsAccel(const int &accel) const
 {
 	for (int i = 0; i < Motor_Union.size(); i++)
