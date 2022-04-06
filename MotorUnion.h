@@ -18,6 +18,7 @@ public:
 	MotorUnion(const vector<unsigned char> &IDArray,
 			   const vector<string> &MotorModelArray);
 	virtual ~MotorUnion();
+	void WaitMotorArrival(int i) const;
 private:
 	template <class T>
 	void deleteInVector(vector<T *>);
@@ -36,7 +37,6 @@ private:
 protected:
 	/* Wait */
 	void WaitAllMotorsArrival() const;
-	void WaitMotorArrival(int i) const;
 	const bool CheckAllMotorsArrival() const;
 	void WaitAllMotorsArrival(const int &total_waiting_time_ms) const;
 	void StopAllMotor() const;
