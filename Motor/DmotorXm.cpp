@@ -11,8 +11,8 @@ DmotorXm::DmotorXm(const unsigned char &MotorID, const string &MotorModel)
 		Motor_CenterScale = 2048;
 		Max_Position_Limit = 4095;
 		Min_Position_Limit = 0;
-		Max_Velocity_Limit = 1023;
-		Min_Velocity_Limit = 0;
+		Max_Velocity_Limit = 200;
+		Min_Velocity_Limit = -200;
 		Max_Accel_Limit = 32767;
 		Max_Torque_Limit = 2047;
 
